@@ -1,0 +1,22 @@
+{
+  "name": "phishing-url-detector-web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Fully client-side phishing-URL detector — the same logistic-regression model and feature extraction as the Python CLI, running in the browser.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json && tsc -p tsconfig.test.json && vite build",
+    "preview": "vite preview --port 4173 --strictPort",
+    "test": "vitest run",
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@types/node": "^25.8.0",
+    "jsdom": "^25.0.1",
+    "typescript": "~6.0.2",
+    "vite": "^8.0.12",
+    "vitest": "^3.0.0"
+  }
+}

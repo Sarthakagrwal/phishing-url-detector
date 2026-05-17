@@ -1,0 +1,14 @@
+{
+  "comment": "Type-checks the test files and config. These use Node APIs (the parity fixture loader reads the repo-root JSON) and vitest globals, so they need the 'node' and 'vitest/globals' type packages that the production build deliberately omits.",
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["vite/client", "vitest/globals", "node"]
+  },
+  "include": [
+    "src/**/*.test.ts",
+    "src/fixtures.ts",
+    "vite.config.ts",
+    "playwright.config.ts",
+    "e2e/**/*.ts"
+  ]
+}

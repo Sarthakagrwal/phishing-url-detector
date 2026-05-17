@@ -1,0 +1,212 @@
+/* ============================================================
+   PhishGuard — project-specific styles.
+   The shared design system lives in theme.css; this file only adds
+   what is unique to the phishing-URL detector page.
+   ============================================================ */
+
+/* --- Analyse form ----------------------------------------------------------- */
+.analyze-form {
+  display: flex;
+  gap: var(--sp-3);
+  align-items: stretch;
+}
+.analyze-form input[type='text'] {
+  flex: 1;
+}
+.analyze-form .btn {
+  white-space: nowrap;
+}
+@media (max-width: 560px) {
+  .analyze-form {
+    flex-direction: column;
+  }
+}
+
+/* --- Example URL chips ------------------------------------------------------ */
+.examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  align-items: center;
+}
+.examples__label {
+  color: var(--text-dim);
+  font-size: 0.82rem;
+  margin-right: var(--sp-1);
+}
+.chip {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  padding: var(--sp-1) var(--sp-3);
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  color: var(--text-mut);
+  cursor: pointer;
+  transition:
+    background var(--ease),
+    color var(--ease),
+    border-color var(--ease);
+}
+.chip:hover {
+  background: var(--panel-hover);
+  color: var(--text);
+}
+.chip--safe {
+  border-color: var(--safe-bord);
+}
+.chip--danger {
+  border-color: var(--danger-bord);
+}
+
+/* --- Verdict meter under the banner ---------------------------------------- */
+.verdict-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+/* --- Score split (ML vs heuristic) ----------------------------------------- */
+.score-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-3);
+}
+@media (max-width: 560px) {
+  .score-split {
+    grid-template-columns: 1fr;
+  }
+}
+.score-split .stat__value {
+  font-size: 1.4rem;
+}
+
+/* --- Feature breakdown table ----------------------------------------------- */
+.feature-table-wrap {
+  max-height: 460px;
+  overflow-y: auto;
+}
+.data-table td.feat-flag {
+  text-align: center;
+  width: 64px;
+}
+.flag-yes {
+  color: var(--danger);
+  font-weight: 700;
+}
+.flag-no {
+  color: var(--text-dim);
+}
+
+/* --- ML contribution bars -------------------------------------------------- */
+.contrib {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.contrib__row {
+  display: grid;
+  grid-template-columns: 160px 1fr 64px;
+  gap: var(--sp-3);
+  align-items: center;
+  font-size: 0.86rem;
+}
+.contrib__name {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-mut);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.contrib__track {
+  position: relative;
+  height: 16px;
+  background: var(--panel-2);
+  border: 1px solid var(--border-mut);
+  border-radius: var(--radius-sm);
+}
+/* The track is split at the centre: phishing-ward bars grow right, safe-ward
+   bars grow left, so the sign of each contribution is visible at a glance. */
+.contrib__track::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
+}
+.contrib__bar {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  border-radius: 3px;
+}
+.contrib__bar--pos {
+  left: 50%;
+  background: var(--danger);
+}
+.contrib__bar--neg {
+  right: 50%;
+  background: var(--safe);
+}
+.contrib__value {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  text-align: right;
+}
+.contrib__value--pos {
+  color: var(--danger);
+}
+.contrib__value--neg {
+  color: var(--safe);
+}
+
+/* --- Result layout --------------------------------------------------------- */
+#results {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+/* The HTML `hidden` attribute must win over the flex display above, so the
+   results section is genuinely removed from layout until an analysis runs. */
+#results[hidden] {
+  display: none;
+}
+
+/* --- Inline error ---------------------------------------------------------- */
+.form-error {
+  color: var(--danger);
+  font-size: 0.86rem;
+  min-height: 1.2em;
+}
+
+/* --- How-it-works list ----------------------------------------------------- */
+.how-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  counter-reset: step;
+}
+.how-list li {
+  display: flex;
+  gap: var(--sp-3);
+  align-items: flex-start;
+}
+.how-list li::before {
+  counter-increment: step;
+  content: counter(step);
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--accent-soft);
+  color: var(--accent-2);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+}

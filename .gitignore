@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.venv/
+dist/
+build/
+
+# Node / web
+node_modules/
+web/dist/
+web/test-results/
+web/playwright-report/
+web/.vite/
+
+# OS / editor
+.DS_Store
+*.swp
+
+# Project-specific: the raw training dataset is large and re-downloadable.
+# The trained model artefacts (models/*.joblib, models/model_meta.json) and
+# the generated web/src/generated/model.ts ARE committed.
+ml/dataset/

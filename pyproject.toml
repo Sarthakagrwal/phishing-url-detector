@@ -1,0 +1,51 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "phishing-url-detector"
+version = "0.1.0"
+description = "Detects phishing URLs by combining transparent heuristic rules with a logistic-regression classifier that runs identically in Python and in the browser."
+requires-python = ">=3.13"
+license = { text = "MIT" }
+authors = [{ name = "Sarthak Aggarwal" }]
+# Runtime dependencies are intentionally empty: classify.py / model.py / the
+# CLI use only the Python standard library (the model is the closed-form
+# sigmoid of a logistic regression, read from a plain JSON file). Heavyweight
+# packages live in the optional extras below.
+dependencies = []
+
+[project.optional-dependencies]
+# Used only to (re)train the model — not needed to run the detector or CLI.
+ml = [
+  "scikit-learn>=1.5",
+  "pandas>=2.2",
+  "numpy>=1.26",
+  "ucimlrepo>=0.0.7",
+  "joblib>=1.4",
+]
+# Optional CLI-only domain-age enrichment.
+whois = [
+  "python-whois>=0.9",
+]
+dev = [
+  "pytest>=8",
+  "ruff>=0.6",
+]
+
+[project.scripts]
+phishdetect = "phishdetect.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["phishdetect"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+extend-exclude = ["ml/dataset", "web"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
